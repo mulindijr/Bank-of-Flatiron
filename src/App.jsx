@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Transactions from './Transactions';
+import TransactionForm from './TransactionForm';
 
 function App() {
   // State to store transaction data
@@ -16,8 +17,30 @@ function App() {
       });
   }, []);
 
+  const addTransaction = (newTransaction) => {
+    // Make a POST request to the server to add the new transaction
+    fetch('http://localhost:8001/transactions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newTransaction),
+    })
+    .then((res) => res.json())
+    .then((addedTransaction) => {
+      // Update the state with the added transaction from the server
+      setData([...data, addedTransaction]);
+    })
+    .catch((error) => {
+      console.error('Error adding transaction:', error);
+    });
+  };
+
   return (
     <div>
+
+      <TransactionForm onAddTransaction={addTransaction} />
+
       {/* Table for displaying transactions */}
       <table className='transaction-table'>
         <thead>
