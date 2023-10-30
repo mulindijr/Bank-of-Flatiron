@@ -11,6 +11,12 @@
   color: white;
   width: 98%;
 }
-
+.search-bar{
+  width: 98%;
+  padding: 10px;
+  font-size: 15px;
+  margin-bottom: 10px;
+  outline: none;
+}
 
 
