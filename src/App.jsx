@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import Transactions from './Transactions';
 
 function App() {
-  const [count, setCount] = useState(0)
+  // State to store transaction data
+  const [data, setData] = useState([]);
+  
+  // Fetch data from the server when the component mounts
+  useEffect(() => {
+    fetch('http://localhost:8001/transactions')
+      .then((res) => res.json())
+      .then((transactions) => {
+        setData(transactions);
+      });
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      {/* Table for displaying transactions */}
+      <table className='transaction-table'>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.map((transaction) => (
+            // Render each transaction using the Transactions component
+            <Transactions
+              date={transaction.date}
+              description={transaction.description}
+              category={transaction.category}
+              amount={transaction.amount}
+              searchTerm={searchTerm} 
+              key={transaction.id}
+            />
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }
-
-export default App
+export default App;
