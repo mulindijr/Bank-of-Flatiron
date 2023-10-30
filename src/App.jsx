@@ -38,6 +38,7 @@ function App() {
 
   return (
     <div>
+      <h1 className='title'>The Royal Bank of Flatiron</h1>
       {/* search input field for filtering transactions by description */}
       <input
         className='search-bar'
