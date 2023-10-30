@@ -38,7 +38,14 @@ function App() {
 
   return (
     <div>
-
+      {/* search input field for filtering transactions by description */}
+      <input
+        className='search-bar'
+        type="text"
+        placeholder="Search by description"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
       <TransactionForm onAddTransaction={addTransaction} />
 
       {/* Table for displaying transactions */}
