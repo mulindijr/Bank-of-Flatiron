@@ -5,6 +5,7 @@ import Transactions from './Transactions';
 function App() {
   // State to store transaction data
   const [data, setData] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
   
   // Fetch data from the server when the component mounts
   useEffect(() => {
